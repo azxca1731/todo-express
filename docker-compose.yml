@@ -1,0 +1,52 @@
+version: "3.5" # 설치된 docker 버전에 따라 다릅니다!
+services:
+    server:
+        container_name: server
+        build: . # Dockerfile이 위치한 경로
+        ports:
+            - "3030:3031" # 연결할 포트
+        environment: # 환경변수 설정
+            - NODE_ENV=production
+            - DB_HOST=mongo
+            - DB=test
+        networks: # 각 컨테이너를 연결하는 네트워크
+            - backend
+
+    mongodb:
+        container_name: mongo
+        image: mvertes/alpine-mongo # alpine 이미지는 용량이 적어 사용하기 좋다.
+        ports:
+            - "27017:27017"
+        volumes:
+            - mongo:/data/db # volume을 만들어두지 않으면 컨테이너가 매번 종료될 때마다 데이터가 초기화 되므로 따로 볼륨으로 관리한다.
+        networks:
+            - backend # 앱 서버와 같은 네트워크에 연결
+            # 만약 이 항목을 넣지 않으면 연결이 없다는 에러가 발생함
+redis:
+    container_name: redis
+    image: redis:4.0.8-alpine # 역시 alpine 이미지를 사용해줍니다.
+    ports:
+        - "6379:6379"
+    volumes:
+        - redis:/data/redis
+    restart: always
+    networks: # 서버와 같은 네트워크, 잊지 마세요!
+        - backend
+
+nginx:
+    container_name: nginx
+    build:
+        context: .
+        dockerfile: Dockerfile.nginx
+    ports:
+        - "3031:80"
+    networks:
+        - backend
+
+volumes: # mongodb 데이터
+    mongo:
+    redis:
+
+networks: # 가장 기본적인 bridge 네트워크
+    backend:
+        driver: bridge

@@ -10,7 +10,7 @@
         <% include ./components/toast.ejs %>
         
         <main role="todos" class="inner cover">
-          <%for(var i=0;i<todos.length;i++){%>
+          <%for(let i=0;i<todos.length;i++){%>
              <%- include('./components/todo.ejs', {todo: todos[i]}); %>
           <%}%>
         </main>
@@ -18,10 +18,5 @@
         <% include ./components/footer.ejs %>
       </div>
       <script src="/javascripts/todos.js"></script>
-      <script>
-        function check_click(dom){
-          console.log(dom);
-        }
-      </script>
   </body>
 </html>

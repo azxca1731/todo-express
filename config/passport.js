@@ -1,5 +1,5 @@
-var LocalStrategy = require("passport-local").Strategy;
-var User = require("../models/user");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("../models/user");
 module.exports = function(passport) {
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
@@ -29,7 +29,7 @@ module.exports = function(passport) {
 							req.flash("signupMessage", "이메일이 존재합니다.")
 						);
 					} else {
-						var newUser = new User();
+						const newUser = new User();
 						newUser.name = req.body.name;
 						newUser.email = email;
 						newUser.password = newUser.generateHash(password);

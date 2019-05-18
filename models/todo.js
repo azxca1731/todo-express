@@ -1,5 +1,5 @@
-var mongoose = require("mongoose");
-var todoSchema = mongoose.Schema({
+const mongoose = require("mongoose");
+const todoSchema = mongoose.Schema({
 	owner: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
 	body: String,
 	title: String,

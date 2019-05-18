@@ -1,10 +1,10 @@
-var express = require("express");
-var passport = require("passport");
-var router = express.Router();
+const express = require("express");
+const passport = require("passport");
+const router = express.Router();
 
-var Todo = require("../models/todo");
-var convertDate = require("../lib/convertDate");
-var isAuthenticated = require("../lib/isAuthenticated");
+const Todo = require("../models/todo");
+const convertDate = require("../lib/convertDate");
+const isAuthenticated = require("../lib/isAuthenticated");
 
 router.get("/", async function(req, res, next) {
 	const [err] = req.flash("err");
@@ -56,7 +56,8 @@ router.get("/todos", isAuthenticated, async function(req, res, next) {
 		title: item.title,
 		body: item.body,
 		overDate: item.endDate <= Date.now(),
-		type: item.type
+		type: item.type,
+		check: item.check
 	}));
 
 	res.render("todos", {
@@ -84,12 +85,12 @@ router.get("/edit/:id", isAuthenticated, async function(req, res, next) {
 	}
 
 	myTodo.end_date = convertDate(myTodo.endDate);
-	console.log(req.flash("err"));
+	const [err] = req.flash("err");
 	res.render("edit", {
 		title: "Express",
 		user: req.user,
 		todo: myTodo,
-		err: req.flash("err") ? req.flash("err") : false
+		err
 	});
 });
 
@@ -223,7 +224,7 @@ router.post(
 
 router.post("/write", isAuthenticated, async function(req, res, next) {
 	const { title, end_date: endDate, body } = req.body;
-	var newTodo = new Todo({ title, endDate, body, owner: req.user });
+	const newTodo = new Todo({ title, endDate, body, owner: req.user });
 	await newTodo.save();
 	res.redirect("/todos");
 });

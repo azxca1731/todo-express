@@ -1,22 +1,28 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var mongoose = require("mongoose");
-var passport = require("passport");
-var session = require("express-session");
-var flash = require("connect-flash");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const session = require("express-session");
+const flash = require("connect-flash");
+const redisStore = require("connect-redis")(session);
+const indexRouter = require("./routes/index");
+const fs = require("fs");
 
-var indexRouter = require("./routes/index");
-
-var app = express();
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(logger("dev"));
+app.use(
+	logger({
+		format: "default",
+		stream: fs.createWriteStream("app.log", { flags: "w" })
+	})
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -25,14 +31,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
 	session({
 		secret: "express-todo",
+		store: new redisStore({}),
 		resave: true,
 		saveUninitialized: false
 	})
 );
 
-mongoose.connect("mongodb://localhost/express-todo");
+mongoose.connect(
+	`mongodb://${process.env.DB_HOST || "localhost"}:27017/${process.env.DB}`
+);
 mongoose.Promise = global.Promise;
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function() {
 	console.log("mongo DB connected...");
