@@ -1,11 +1,25 @@
 <div class="card">
-    <div class="card-header text-left">
-        <%= todo.title %>
+    <div class="card-header d-flex justify-content-between">
+        <div>
+            <%= todo.title %>
+        </div>
+        <div>
+            <i class="fas fa-check" data-toggle="check" data-placement="bottom" title="체크하기" onclick="check_click();"></i>
+            <i class="fas fa-edit" data-id="<%=todo._id%>" data-toggle="edit" data-placement="bottom" title="수정하기" onclick="location.href='/edit/<%=todo._id%>'"></i>
+            <i class="fas fa-trash" data-toggle="trash" data-placement="bottom" title="삭제하기" onclick="remove_click(e);"></i>
+        </div>
     </div>
-    <div class="card-body">
+    <div class="card-body todo-body">
         <blockquote class="blockquote mb-0">
             <p><%= todo.body %></p>
-            <footer class="blockquote-footer"><%= todo.endDate %>까지</footer>
+            <%if(todo.endDate){%>
+                <footer class="blockquote-footer"><%= todo.endDate %>까지</footer>
+            <%}%>
         </blockquote>
+        <div class="icon-box">
+            <i class="fas fa-angle-double-up fa-lg icon" data-toggle="double" data-placement="right" title="맨 위로 올리기"></i>
+            <i class="fas fa-angle-up fa-lg icon" data-toggle="up" data-placement="right" title="위로 올리기"></i>
+            <i class="fas fa-angle-down fa-lg icon" data-toggle="down" data-placement="right" title="아래로 올리기"></i>
+        </div>
     </div>
 </div>

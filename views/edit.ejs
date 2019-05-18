@@ -9,16 +9,16 @@
         <% include ./components/links.ejs %>
 
         <main role="main" class="inner cover">
-          <h1 class="cover-heading">Write Todo.</h1>
-          <form action="/write" method="post">
+          <h1 class="cover-heading">Edit Todo</h1>
+          <form action="/edit/<%= todo._id%>" method="post">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Title" name="title" required>
+              <input type="text" class="form-control" placeholder="Title" name="title" value="<%= todo.title %>" required>
             </div>
             <div class="form-group">
-              <input type="Date" class="form-control" name="end_date">
+              <input type="Date" class="form-control" name="end_date" value="<%= todo.end_date %>">
             </div>
             <div class="form-group">
-              <textarea class="form-control" rows="3" name="body" placeholder="Write something here..."></textarea>
+              <textarea class="form-control" rows="3" name="body" placeholder="Write something here..."><%= todo.body %></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
           </form>
