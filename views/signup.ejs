@@ -27,6 +27,9 @@
               <div class="form-group">
               <input type="text" class="form-control" placeholder="Name" name="name" required>
             </div>
+            <% if(message.length > 0) {%>
+              <div class= "alert alert-danger"><%= message %></div>
+            <% } %>
             <button type="submit" name="submit" class="btn btn-primary">Sign up</button>
           </form>
         </main>

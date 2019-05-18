@@ -14,11 +14,17 @@ router.get("/write", function(req, res, next) {
 });
 
 router.get("/login", function(req, res, next) {
-	res.render("login", { title: "Express" });
+	res.render("login", {
+		title: "Express",
+		message: req.flash("loginMessage")
+	});
 });
 
 router.get("/signup", function(req, res, next) {
-	res.render("signup", { title: "Express" });
+	res.render("signup", {
+		title: "Express",
+		message: req.flash("signupMessage")
+	});
 });
 
 router.post(
