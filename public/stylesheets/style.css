@@ -130,4 +130,5 @@ body {
 .card {
 	text-shadow: none;
 	color: #333;
+	margin-bottom: 16px;
 }

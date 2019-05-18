@@ -34,7 +34,7 @@ router.get("/signup", function(req, res, next) {
 	});
 });
 
-router.get("/todos", async function(req, res, next) {
+router.get("/todos", isAuthenticated, async function(req, res, next) {
 	const myTodos = await Todo.find({ owner: req.user });
 	console.log(myTodos);
 	res.render("todos", {
@@ -67,6 +67,6 @@ router.post("/write", isAuthenticated, async function(req, res, next) {
 	const { title, end_date: endDate, body } = req.body;
 	var newTodo = new Todo({ title, endDate, body, owner: req.user });
 	await newTodo.save();
-	res.redirect("/");
+	res.redirect("/todos");
 });
 module.exports = router;
