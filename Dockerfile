@@ -30,9 +30,3 @@ COPY . /usr/src/app/
 # CMD는 명령어를 배열 형태로 배치해야하며
 # 실제로 앱을 실행시키는 커맨드가 들어갑니다.
 CMD ["yarn", "start"]
-
-FROM nginx:alpine
-
-# 기본 설정 파일을 지우고, 새로운 파일로 대체합니다.
-RUN rm /etc/nginx/conf.d/default.conf
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf

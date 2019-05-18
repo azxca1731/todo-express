@@ -22,26 +22,26 @@ services:
         networks:
             - backend # 앱 서버와 같은 네트워크에 연결
             # 만약 이 항목을 넣지 않으면 연결이 없다는 에러가 발생함
-redis:
-    container_name: redis
-    image: redis:4.0.8-alpine # 역시 alpine 이미지를 사용해줍니다.
-    ports:
-        - "6379:6379"
-    volumes:
-        - redis:/data/redis
-    restart: always
-    networks: # 서버와 같은 네트워크, 잊지 마세요!
-        - backend
+    redis:
+        container_name: redis
+        image: redis:4.0.8-alpine # 역시 alpine 이미지를 사용해줍니다.
+        ports:
+            - "6379:6379"
+        volumes:
+            - redis:/data/redis
+        restart: always
+        networks: # 서버와 같은 네트워크, 잊지 마세요!
+            - backend
 
-nginx:
-    container_name: nginx
-    build:
-        context: .
-        dockerfile: Dockerfile.nginx
-    ports:
-        - "3031:80"
-    networks:
-        - backend
+    nginx:
+        container_name: nginx
+        build:
+            context: .
+            dockerfile: Dockerfile.nginx
+        ports:
+            - "3031:80"
+        networks:
+            - backend
 
 volumes: # mongodb 데이터
     mongo:
