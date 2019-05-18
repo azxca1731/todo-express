@@ -41,18 +41,22 @@ app.use(
 	})
 );
 
-mongoose
-	.connect(
-		`mongodb://${process.env.DB_HOST || "localhost"}:27017/${
-			process.env.DB
-		}`
-	)
-	.then(() => {
-		console.log("Connected to Database");
-	})
-	.catch(err => {
-		console.log("Not Connected to Database ERROR! ", err);
-	});
+setTimeout(
+	() =>
+		mongoose
+			.connect(
+				`mongodb://${process.env.DB_HOST || "localhost"}:27017/${
+					process.env.DB
+				}`
+			)
+			.then(() => {
+				console.log("Connected to Database");
+			})
+			.catch(err => {
+				console.log("Not Connected to Database ERROR! ", err);
+			}),
+	2000
+);
 require("./config/passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
