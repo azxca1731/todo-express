@@ -4,7 +4,11 @@
         <nav class="nav nav-masthead justify-content-center" id="link">
             <a class="nav-link" href="/">Home</a>
             <a class="nav-link" href="/write">Write</a>
-            <a class="nav-link" href="/login">Login</a>
+            <% if(user) {%>
+                <a class="nav-link" href="/logout">Logout</a>
+            <% }else { %>
+                <a class="nav-link" href="/login">Login</a>
+            <% } %>
         </nav>
     </div>
 </header>

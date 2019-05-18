@@ -34,7 +34,7 @@ mongoose.connect("mongodb://localhost/express-todo");
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function(callback) {
+db.once("open", function() {
 	console.log("mongo DB connected...");
 });
 require("./config/passport")(passport);
