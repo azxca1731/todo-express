@@ -16,13 +16,17 @@ const app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+if (process.env.NODE_ENV === "production") {
+	app.use(
+		logger({
+			format: "default",
+			stream: fs.createWriteStream("app.log", { flags: "w" })
+		})
+	);
+} else {
+	app.use(logger("dev"));
+}
 
-app.use(
-	logger({
-		format: "default",
-		stream: fs.createWriteStream("app.log", { flags: "w" })
-	})
-);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
