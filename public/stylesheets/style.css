@@ -124,6 +124,18 @@ body {
 }
 
 /*
+ * Toast
+ */
+
+.toast {
+	text-shadow: none;
+	color: #333;
+	position: absolute;
+	top: 100px;
+	right: 100px;
+}
+
+/*
  * Card
  */
 
@@ -131,6 +143,11 @@ body {
 	text-shadow: none;
 	color: #333;
 	margin-bottom: 16px;
+	border: none !important;
+}
+
+.blockquote {
+	padding: 0 20px;
 }
 
 .card-body {

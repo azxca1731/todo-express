@@ -36,7 +36,7 @@ router.get("/signup", function(req, res, next) {
 });
 
 router.get("/todos", isAuthenticated, async function(req, res, next) {
-	const myTodos = await Todo.find({ owner: req.user });
+	const myTodos = await Todo.find({ owner: req.user }).sort({ type: -1 });
 	res.render("todos", {
 		title: "Express",
 		message: req.flash("signupMessage"),
@@ -51,10 +51,10 @@ router.get("/edit/:id", isAuthenticated, async function(req, res, next) {
 	try {
 		[myTodo] = await Todo.find({ _id: todoId, owner: req.user });
 	} catch (err) {
-		res.redirect("/todos");
+		res.redirect("/");
 	}
 	if (!myTodo) {
-		res.redirect("/todos");
+		res.redirect("/");
 		return;
 	}
 
@@ -64,6 +64,106 @@ router.get("/edit/:id", isAuthenticated, async function(req, res, next) {
 		user: req.user,
 		todo: myTodo
 	});
+});
+
+router.get("/delete/:id", isAuthenticated, async function(req, res, next) {
+	const todoId = req.params.id;
+	let myTodo;
+	try {
+		[myTodo] = await Todo.find({ _id: todoId, owner: req.user });
+	} catch (err) {
+		res.redirect("/");
+	}
+	if (!myTodo) {
+		res.redirect("/");
+		return;
+	}
+
+	await Todo.deleteOne({ _id: todoId });
+
+	res.redirect("/todos");
+});
+
+router.get("/check/:id", isAuthenticated, async function(req, res, next) {
+	const todoId = req.params.id;
+	let myTodo;
+	try {
+		[myTodo] = await Todo.find({ _id: todoId, owner: req.user });
+	} catch (err) {
+		res.redirect("/");
+		return;
+	}
+	if (!myTodo) {
+		res.redirect("/");
+		return;
+	}
+
+	if (myTodo.check) myTodo.check = false;
+	else myTodo.check = true;
+	await myTodo.save();
+
+	res.redirect("/todos");
+});
+
+router.get("/realhaste/:id", isAuthenticated, async function(req, res, next) {
+	const todoId = req.params.id;
+	let myTodo;
+	try {
+		[myTodo] = await Todo.find({ _id: todoId, owner: req.user });
+	} catch (err) {
+		res.redirect("/");
+		return;
+	}
+	if (!myTodo) {
+		res.redirect("/");
+		return;
+	}
+
+	myTodo.type = 3;
+	console.log(myTodo);
+	await myTodo.save();
+
+	res.redirect("/todos");
+});
+
+router.get("/haste/:id", isAuthenticated, async function(req, res, next) {
+	const todoId = req.params.id;
+	let myTodo;
+	try {
+		[myTodo] = await Todo.find({ _id: todoId, owner: req.user });
+	} catch (err) {
+		res.redirect("/");
+		return;
+	}
+	if (!myTodo) {
+		res.redirect("/");
+		return;
+	}
+
+	myTodo.type = 2;
+	await myTodo.save();
+
+	res.redirect("/todos");
+});
+
+router.get("/normal/:id", isAuthenticated, async function(req, res, next) {
+	const todoId = req.params.id;
+	let myTodo;
+	try {
+		[myTodo] = await Todo.find({ _id: todoId, owner: req.user });
+	} catch (err) {
+		res.redirect("/");
+		return;
+	}
+	if (!myTodo) {
+		res.redirect("/");
+		return;
+	}
+
+	myTodo.type = 1;
+	await myTodo.save();
+
+	res.redirect("/todos");
 });
 
 router.post(
@@ -99,11 +199,11 @@ router.post("/edit/:id", isAuthenticated, async function(req, res, next) {
 	try {
 		[myTodo] = await Todo.find({ _id: todoId, owner: req.user });
 	} catch (err) {
-		res.redirect("/todos");
+		res.redirect("/");
 		return;
 	}
 	if (!myTodo) {
-		res.redirect("/todos");
+		res.redirect("/");
 		return;
 	}
 	myTodo.title = title;
