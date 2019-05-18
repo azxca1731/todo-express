@@ -2,11 +2,10 @@ var express = require("express");
 var passport = require("passport");
 var router = express.Router();
 
+var Todo = require("../models/todo");
 var isAuthenticated = require("../lib/isAuthenticated");
 
-/* GET home page. */
-router.get("/", function(req, res, next) {
-	console.log(req.user);
+router.get("/", async function(req, res, next) {
 	res.render("index", { title: "Express", user: req.user });
 });
 
@@ -35,6 +34,17 @@ router.get("/signup", function(req, res, next) {
 	});
 });
 
+router.get("/todos", async function(req, res, next) {
+	const myTodos = await Todo.find({ owner: req.user });
+	console.log(myTodos);
+	res.render("todos", {
+		title: "Express",
+		message: req.flash("signupMessage"),
+		user: req.user,
+		todos: myTodos
+	});
+});
+
 router.post(
 	"/login",
 	passport.authenticate("login", {
@@ -52,4 +62,11 @@ router.post(
 		failureFlash: true
 	})
 );
+
+router.post("/write", isAuthenticated, async function(req, res, next) {
+	const { title, end_date: endDate, body } = req.body;
+	var newTodo = new Todo({ title, endDate, body, owner: req.user });
+	await newTodo.save();
+	res.redirect("/");
+});
 module.exports = router;

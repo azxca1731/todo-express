@@ -1,8 +1,10 @@
 <header class="masthead mb-auto">
     <div class="inner">
-        <h3 class="masthead-brand"><%= title %></h3>
+        <a href="/" class="index-link">
+            <h3 class="masthead-brand"><%= title %></h3>
+        </a>
         <nav class="nav nav-masthead justify-content-center" id="link">
-            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/todos">Todos</a>
             <a class="nav-link" href="/write">Write</a>
             <% if(user) {%>
                 <a class="nav-link" href="/logout">Logout</a>

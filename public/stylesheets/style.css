@@ -9,6 +9,14 @@ a:hover {
 	color: #fff;
 }
 
+.index-link {
+	color: #fff;
+}
+.index-link:hover {
+	color: #fff;
+	text-decoration-line: none;
+}
+
 /* Custom default button */
 .btn-secondary,
 .btn-secondary:hover,
@@ -113,4 +121,13 @@ body {
 	.bd-placeholder-img-lg {
 		font-size: 3.5rem;
 	}
+}
+
+/*
+ * Card
+ */
+
+.card {
+	text-shadow: none;
+	color: #333;
 }

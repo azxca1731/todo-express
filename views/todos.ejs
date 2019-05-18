@@ -12,20 +12,10 @@
       <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <% include ./components/links.ejs %>
 
-        <main role="main" class="inner cover">
-          <h1 class="cover-heading">Write Todo.</h1>
-          <form action="/write" method="post">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Title" name="title" required>
-            </div>
-            <div class="form-group">
-              <input type="Date" class="form-control" name="end_date">
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" rows="3" name="body" placeholder="Write something here..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-          </form>
+        <main role="todos" class="inner cover">
+          <%for(var i=0;i<todos.length;i++){%>
+             <%- include('./components/todo.ejs', {todo: todos[i]}); %>
+          <%}%>
         </main>
 
         <% include ./components/footer.ejs %>
