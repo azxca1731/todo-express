@@ -154,7 +154,6 @@ router.get("/realhaste/:id", isAuthenticated, async function(req, res, next) {
 	}
 
 	myTodo.type = 3;
-	console.log(myTodo);
 	await myTodo.save();
 
 	res.redirect("/todos");
@@ -231,7 +230,6 @@ router.post("/write", isAuthenticated, async function(req, res, next) {
 
 router.post("/edit/:id", isAuthenticated, async function(req, res, next) {
 	const todoId = req.params.id;
-	console.log(req.body);
 	const { title, end_date, body } = req.body;
 	let myTodo;
 	try {
