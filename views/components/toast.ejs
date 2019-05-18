@@ -1,0 +1,18 @@
+<% if(data){%>
+    <div class="toast" data-autohide="false">
+        <div class="toast-header">
+            <strong class="mr-auto text-primary">Past Todos</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+        </div>
+        <div class="toast-body">
+            총 <%= data.length%>개의 투두가 기간이 지났습니다.
+            <br />
+            알람을 끄시려면 지난 투두를 삭제해주세요.
+        </div>
+    </div>
+<% }%>
+<% if(data){%>
+    <script>
+        $('.toast').toast('show');
+    </script>
+<% }%>

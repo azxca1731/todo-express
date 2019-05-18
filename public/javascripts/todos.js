@@ -8,8 +8,5 @@ $(function() {
 	$("[data-check=true]").css("color", "green");
 	$("[data-type=3]").css("background-color", "#F78181");
 	$("[data-type=2]").css("background-color", "#F3F781");
+	$("[data-over-date=true]").css("color", "red");
 });
-
-// $('[data-toggle="edit"]').click(e => {
-// 	console.log($(e.target).data("id"));
-// });

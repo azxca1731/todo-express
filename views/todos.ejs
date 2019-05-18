@@ -7,7 +7,8 @@
   <body class="text-center text-light">
       <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <% include ./components/links.ejs %>
-
+        <% include ./components/toast.ejs %>
+        
         <main role="todos" class="inner cover">
           <%for(var i=0;i<todos.length;i++){%>
              <%- include('./components/todo.ejs', {todo: todos[i]}); %>

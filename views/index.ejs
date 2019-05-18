@@ -7,13 +7,16 @@
   <body class="text-center text-light">
       <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <% include ./components/links.ejs %>
-
+        <%if(err){%>
+          <div class= "alert alert-danger"><%= err %></div>
+        <%}%>
         <main role="main" class="inner cover">
           <h1 class="cover-heading">Save your Todos.</h1>
           <p class="lead">Life is More Difficult to remember everything, many person save their life for our website. Do it Whenever you've forgot</p>
           <p class="lead">
             <a href="/signin" class="btn btn-lg btn-secondary">Sign in</a>
           </p>
+          
         </main>
 
         <% include ./components/footer.ejs %>
