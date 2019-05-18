@@ -1,0 +1,27 @@
+<header class="masthead mb-auto">
+    <div class="inner">
+        <h3 class="masthead-brand"><%= title %></h3>
+        <nav class="nav nav-masthead justify-content-center" id="link">
+            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/write">Write</a>
+            <a class="nav-link" href="/login">Login</a>
+        </nav>
+    </div>
+</header>
+<script type="text/javascript">
+    //Active Script
+    (() => {
+        var links = document.getElementById("link").children;
+        var url = window.location.pathname;
+        Array.from(links).map(item => {
+            const {
+                attributes: {
+                    href: { nodeValue }
+                }
+            } = item;
+            if (nodeValue === url) {
+                item.className += " active";
+            }
+        });
+    })();
+</script>
